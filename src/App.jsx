@@ -4,6 +4,12 @@ import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Homepage from './pages/Homepage';
 import Dashboard from './pages/Dashboard';
+import Projects from './pages/Projects';
+import CaseStudies from './pages/CaseStudies';
+import Blog from './pages/Blog';
+import Podcast from './pages/Podcast';
+import Resources from './pages/Resources';
+import Consulting from './pages/Consulting';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -16,6 +22,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/podcast" element={<Podcast />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/consulting" element={<Consulting />} />
           </Routes>
           <Footer />
         </div>

@@ -24,6 +24,12 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Podcast', path: '/podcast' },
+    { name: 'Resources', path: '/resources' },
+    { name: 'Consulting', path: '/consulting' },
     { name: 'Dashboard', path: '/dashboard', icon: FiBarChart3 },
   ];
 
@@ -50,12 +56,12 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
+                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors text-sm ${
                   location.pathname === item.path
                     ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30'
                     : 'text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400'
@@ -79,7 +85,7 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+              className="lg:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
             >
               <SafeIcon icon={isMobileMenuOpen ? FiX : FiMenu} className="w-5 h-5" />
             </button>
@@ -92,7 +98,7 @@ const Header = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 shadow-lg"
+            className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 shadow-lg"
           >
             <nav className="px-4 py-4 space-y-2">
               {navItems.map((item) => (
