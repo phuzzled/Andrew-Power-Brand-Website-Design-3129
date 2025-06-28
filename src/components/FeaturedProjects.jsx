@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
@@ -20,7 +21,7 @@ const FeaturedProjects = () => {
       image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=400&fit=crop",
       tags: ["Social Impact", "Platform", "Global Reach"],
       status: "Live",
-      link: "#"
+      link: "/projects"
     },
     {
       title: "Project NOVI",
@@ -29,7 +30,7 @@ const FeaturedProjects = () => {
       image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
       tags: ["AI/ML", "Psychometrics", "Analytics"],
       status: "In Development",
-      link: "#"
+      link: "/projects"
     },
     {
       title: "Impact Measurement Suite",
@@ -38,7 +39,7 @@ const FeaturedProjects = () => {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       tags: ["Analytics", "Impact", "Dashboard"],
       status: "Beta",
-      link: "#"
+      link: "/projects"
     },
     {
       title: "Global Leadership Network",
@@ -47,7 +48,7 @@ const FeaturedProjects = () => {
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
       tags: ["Network", "Leadership", "Mentorship"],
       status: "Live",
-      link: "#"
+      link: "/projects"
     }
   ];
 
@@ -89,11 +90,9 @@ const FeaturedProjects = () => {
                 {/* Status Badge */}
                 <div className="absolute top-4 left-4">
                   <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                    project.status === 'Live' 
-                      ? 'bg-green-500 text-white'
-                      : project.status === 'Beta'
-                      ? 'bg-yellow-500 text-white'
-                      : 'bg-blue-500 text-white'
+                    project.status === 'Live' ? 'bg-green-500 text-white' :
+                    project.status === 'Beta' ? 'bg-yellow-500 text-white' :
+                    'bg-blue-500 text-white'
                   }`}>
                     {project.status}
                   </span>
@@ -131,18 +130,27 @@ const FeaturedProjects = () => {
 
                 {/* Actions */}
                 <div className="flex items-center justify-between">
-                  <button className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group">
+                  <Link
+                    to={project.link}
+                    className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group"
+                  >
                     <span>Learn More</span>
                     <SafeIcon icon={FiArrowRight} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  </Link>
                   
                   <div className="flex items-center space-x-3">
-                    <button className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+                    <Link
+                      to={project.link}
+                      className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                    >
                       <SafeIcon icon={FiExternalLink} className="w-5 h-5" />
-                    </button>
-                    <button className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+                    </Link>
+                    <Link
+                      to={project.link}
+                      className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                    >
                       <SafeIcon icon={FiGithub} className="w-5 h-5" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -157,10 +165,13 @@ const FeaturedProjects = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <button className="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <Link
+            to="/projects"
+            className="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-fit"
+          >
             <span>View All Projects</span>
             <SafeIcon icon={FiArrowRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

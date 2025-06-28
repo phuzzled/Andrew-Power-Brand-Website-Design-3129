@@ -12,29 +12,29 @@ const Footer = () => {
 
   const footerLinks = {
     "Work": [
-      { name: "Projects", href: "#projects" },
-      { name: "Case Studies", href: "#case-studies" },
-      { name: "Speaking", href: "#speaking" },
-      { name: "Consulting", href: "#consulting" }
+      { name: "Projects", href: "/projects" },
+      { name: "Case Studies", href: "/case-studies" },
+      { name: "Consulting", href: "/consulting" },
+      { name: "Dashboard", href: "/dashboard" }
     ],
     "Insights": [
-      { name: "Blog", href: "#blog" },
-      { name: "Videos", href: "#videos" },
-      { name: "Podcast", href: "#podcast" },
-      { name: "Resources", href: "#resources" }
+      { name: "Blog", href: "/blog" },
+      { name: "Podcast", href: "/podcast" },
+      { name: "Resources", href: "/resources" },
+      { name: "Newsletter", href: "/#newsletter" }
     ],
     "Connect": [
-      { name: "Newsletter", href: "#newsletter" },
-      { name: "Contact", href: "#contact" },
-      { name: "Collaborations", href: "#collaborations" },
-      { name: "Media Kit", href: "#media-kit" }
+      { name: "Contact", href: "/#contact" },
+      { name: "About", href: "/#about" },
+      { name: "Speaking", href: "/consulting" },
+      { name: "Media Kit", href: "/resources" }
     ]
   };
 
   const socialLinks = [
-    { icon: FiLinkedin, label: "LinkedIn", href: "#" },
-    { icon: FiTwitter, label: "Twitter", href: "#" },
-    { icon: FiGithub, label: "GitHub", href: "#" },
+    { icon: FiLinkedin, label: "LinkedIn", href: "https://linkedin.com/in/andrewpower" },
+    { icon: FiTwitter, label: "Twitter", href: "https://twitter.com/andrewqpower" },
+    { icon: FiGithub, label: "GitHub", href: "https://github.com/andrewpower" },
     { icon: FiMail, label: "Email", href: "mailto:andrew@andrewpower.co" }
   ];
 
@@ -62,6 +62,8 @@ const Footer = () => {
                   <a
                     key={social.label}
                     href={social.href}
+                    target={social.href.startsWith('http') ? '_blank' : '_self'}
+                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : ''}
                     className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-primary-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1"
                     aria-label={social.label}
                   >
@@ -79,12 +81,12 @@ const Footer = () => {
                   <ul className="space-y-3">
                     {links.map((link) => (
                       <li key={link.name}>
-                        <a
-                          href={link.href}
+                        <Link
+                          to={link.href}
                           className="text-slate-400 hover:text-white transition-colors duration-200"
                         >
                           {link.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -100,8 +102,8 @@ const Footer = () => {
               <p className="text-slate-300 mb-6">
                 Join The Power Source newsletter for weekly insights on innovation and impact.
               </p>
-              <Link
-                to="#newsletter"
+              <Link 
+                to="/#newsletter" 
                 className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:-translate-y-1"
               >
                 <SafeIcon icon={FiMail} className="w-5 h-5" />
@@ -116,21 +118,20 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="flex items-center space-x-6 text-sm text-slate-400">
               <span>© 2024 Andrew Q. Power. All rights reserved.</span>
-              <a href="#privacy" className="hover:text-white transition-colors">
+              <Link to="/resources" className="hover:text-white transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#terms" className="hover:text-white transition-colors">
+              </Link>
+              <Link to="/resources" className="hover:text-white transition-colors">
                 Terms of Service
-              </a>
+              </Link>
             </div>
-
+            
             <div className="flex items-center space-x-4">
               <span className="text-sm text-slate-400 flex items-center space-x-1">
                 <span>Made with</span>
                 <SafeIcon icon={FiHeart} className="w-4 h-4 text-red-500" />
                 <span>for positive impact</span>
               </span>
-              
               <button
                 onClick={scrollToTop}
                 className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 hover:bg-primary-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1"

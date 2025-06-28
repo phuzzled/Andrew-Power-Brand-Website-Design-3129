@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
@@ -86,15 +87,21 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 1 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <button className="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+              <Link 
+                to="/projects"
+                className="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
                 <span>Explore My Work</span>
                 <SafeIcon icon={FiArrowRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              
-              <button className="group border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2">
+              </Link>
+
+              <Link
+                to="/podcast"
+                className="group border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
+              >
                 <SafeIcon icon={FiPlay} className="w-5 h-5" />
                 <span>Watch Story</span>
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
 
@@ -109,7 +116,11 @@ const HeroSection = () => {
               {/* Floating Elements */}
               <motion.div
                 animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
                 className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-primary-500 to-electric-500 rounded-xl shadow-lg flex items-center justify-center"
               >
                 <SafeIcon icon={FiDownload} className="w-8 h-8 text-white" />
@@ -117,7 +128,11 @@ const HeroSection = () => {
 
               <motion.div
                 animate={{ y: [10, -10, 10] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
                 className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-electric-500 to-primary-500 rounded-full shadow-lg"
               />
 

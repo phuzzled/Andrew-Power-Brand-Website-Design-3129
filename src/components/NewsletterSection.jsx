@@ -45,7 +45,7 @@ const NewsletterSection = () => {
   ];
 
   return (
-    <section ref={ref} className="py-20 bg-gradient-to-br from-primary-50 via-white to-electric-50 dark:from-primary-950 dark:via-slate-900 dark:to-electric-950">
+    <section id="newsletter" ref={ref} className="py-20 bg-gradient-to-br from-primary-50 via-white to-electric-50 dark:from-primary-950 dark:via-slate-900 dark:to-electric-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -142,8 +142,7 @@ const NewsletterSection = () => {
                 No spam, ever. Unsubscribe at any time. Read our{' '}
                 <a href="#" className="text-primary-600 dark:text-primary-400 hover:underline">
                   privacy policy
-                </a>
-                .
+                </a>.
               </p>
             </div>
           </motion.div>

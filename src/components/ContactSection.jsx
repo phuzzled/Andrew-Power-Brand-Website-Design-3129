@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
@@ -14,7 +15,6 @@ const ContactSection = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
@@ -59,13 +59,13 @@ const ContactSection = () => {
   ];
 
   const socialLinks = [
-    { icon: FiLinkedin, label: "LinkedIn", link: "#" },
-    { icon: FiTwitter, label: "Twitter", link: "#" },
-    { icon: FiGithub, label: "GitHub", link: "#" },
+    { icon: FiLinkedin, label: "LinkedIn", link: "https://linkedin.com/in/andrewpower" },
+    { icon: FiTwitter, label: "Twitter", link: "https://twitter.com/andrewqpower" },
+    { icon: FiGithub, label: "GitHub", link: "https://github.com/andrewpower" },
   ];
 
   return (
-    <section ref={ref} className="py-20 bg-slate-50 dark:bg-slate-800">
+    <section id="contact" ref={ref} className="py-20 bg-slate-50 dark:bg-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -248,6 +248,8 @@ const ContactSection = () => {
                   <a
                     key={social.label}
                     href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary-500 hover:text-white transition-all duration-300 transform hover:-translate-y-1"
                     aria-label={social.label}
                   >

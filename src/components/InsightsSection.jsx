@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
@@ -20,7 +21,8 @@ const InsightsSection = () => {
       thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop",
       duration: "12 min",
       category: "Innovation",
-      date: "2024-01-15"
+      date: "2024-01-15",
+      link: "/podcast"
     },
     {
       type: "article",
@@ -29,7 +31,8 @@ const InsightsSection = () => {
       thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop",
       readTime: "8 min read",
       category: "Psychometrics",
-      date: "2024-01-10"
+      date: "2024-01-10",
+      link: "/blog"
     },
     {
       type: "video",
@@ -38,7 +41,8 @@ const InsightsSection = () => {
       thumbnail: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=250&fit=crop",
       duration: "18 min",
       category: "Leadership",
-      date: "2024-01-05"
+      date: "2024-01-05",
+      link: "/podcast"
     },
     {
       type: "article",
@@ -47,7 +51,8 @@ const InsightsSection = () => {
       thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
       readTime: "6 min read",
       category: "Strategy",
-      date: "2023-12-28"
+      date: "2023-12-28",
+      link: "/blog"
     }
   ];
 
@@ -105,10 +110,7 @@ const InsightsSection = () => {
                 {/* Type Icon */}
                 <div className="absolute top-4 right-4">
                   <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <SafeIcon 
-                      icon={insight.type === 'video' ? FiVideo : FiBookOpen} 
-                      className="w-4 h-4 text-white" 
-                    />
+                    <SafeIcon icon={insight.type === 'video' ? FiVideo : FiBookOpen} className="w-4 h-4 text-white" />
                   </div>
                 </div>
               </div>
@@ -137,10 +139,13 @@ const InsightsSection = () => {
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <button className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group">
+                  <Link
+                    to={insight.link}
+                    className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group"
+                  >
                     <span>{insight.type === 'video' ? 'Watch Now' : 'Read More'}</span>
                     <SafeIcon icon={FiArrowRight} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.article>
@@ -154,10 +159,13 @@ const InsightsSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <button className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <Link
+            to="/blog"
+            className="group bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 mx-auto shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-fit"
+          >
             <span>View All Insights</span>
             <SafeIcon icon={FiArrowRight} className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>
