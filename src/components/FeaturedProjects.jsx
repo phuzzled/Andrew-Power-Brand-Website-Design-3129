@@ -1,56 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
+import { contentService } from '../services/contentService';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
 const { FiExternalLink, FiGithub, FiArrowRight } = FiIcons;
 
 const FeaturedProjects = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
 
-  const projects = [
-    {
-      title: "Foundation Nova Diem",
-      category: "Humanitarian Innovation",
-      description: "A revolutionary platform connecting global communities through sustainable development initiatives and impact measurement.",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=400&fit=crop",
-      tags: ["Social Impact", "Platform", "Global Reach"],
-      status: "Live",
-      link: "/projects"
-    },
-    {
-      title: "Project NOVI",
-      category: "AI & Psychometrics",
-      description: "Next-generation assessment platform leveraging AI to provide unprecedented insights into human potential and organizational dynamics.",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
-      tags: ["AI/ML", "Psychometrics", "Analytics"],
-      status: "In Development",
-      link: "/projects"
-    },
-    {
-      title: "Impact Measurement Suite",
-      category: "Data & Analytics",
-      description: "Comprehensive analytics platform for measuring and optimizing social impact across diverse humanitarian initiatives.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      tags: ["Analytics", "Impact", "Dashboard"],
-      status: "Beta",
-      link: "/projects"
-    },
-    {
-      title: "Global Leadership Network",
-      category: "Community Building",
-      description: "Connecting purpose-driven leaders worldwide through mentorship, collaboration, and shared learning experiences.",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
-      tags: ["Network", "Leadership", "Mentorship"],
-      status: "Live",
-      link: "/projects"
+  useEffect(() => {
+    fetchFeaturedProjects();
+  }, []);
+
+  const fetchFeaturedProjects = async () => {
+    try {
+      const { data, error } = await contentService.getFeaturedProjects();
+      if (error) throw error;
+      setProjects(data || []);
+    } catch (error) {
+      console.error('Error fetching featured projects:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-slate-50 dark:bg-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center h-64">
+            <div className="w-16 h-16 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={ref} className="py-20 bg-slate-50 dark:bg-slate-800">
@@ -72,7 +64,7 @@ const FeaturedProjects = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={project.id}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.1 }}
@@ -81,7 +73,7 @@ const FeaturedProjects = () => {
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
                 <img
-                  src={project.image}
+                  src={project.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop'}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -100,8 +92,8 @@ const FeaturedProjects = () => {
 
                 {/* Category */}
                 <div className="absolute bottom-4 left-4">
-                  <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
-                    {project.category}
+                  <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium capitalize">
+                    {project.category?.replace('-', ' ') || 'Innovation'}
                   </span>
                 </div>
               </div>
@@ -117,21 +109,23 @@ const FeaturedProjects = () => {
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {project.tags && project.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 {/* Actions */}
                 <div className="flex items-center justify-between">
                   <Link
-                    to={project.link}
+                    to="/projects"
                     className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold group"
                   >
                     <span>Learn More</span>
@@ -139,18 +133,26 @@ const FeaturedProjects = () => {
                   </Link>
                   
                   <div className="flex items-center space-x-3">
-                    <Link
-                      to={project.link}
-                      className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                    >
-                      <SafeIcon icon={FiExternalLink} className="w-5 h-5" />
-                    </Link>
-                    <Link
-                      to={project.link}
-                      className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                    >
-                      <SafeIcon icon={FiGithub} className="w-5 h-5" />
-                    </Link>
+                    {project.external_link && (
+                      <a
+                        href={project.external_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                      >
+                        <SafeIcon icon={FiExternalLink} className="w-5 h-5" />
+                      </a>
+                    )}
+                    {project.github_link && (
+                      <a
+                        href={project.github_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                      >
+                        <SafeIcon icon={FiGithub} className="w-5 h-5" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
